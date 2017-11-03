@@ -1,4 +1,4 @@
-#[Stanford Intranet_helper](https://github.com/SU-SWS/soe_intranet_helper)
+#[Stanford Intranet helper](https://github.com/SU-SWS/soe_intranet_helper)
 ##### Version: 7.x-1.x
 
 Maintainers: [cjwest](https://github.com/cjwest), [boznik](https://github.com/boznik)
