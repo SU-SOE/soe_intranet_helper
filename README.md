@@ -6,7 +6,7 @@ Maintainers: [cjwest](https://github.com/cjwest), [boznik](https://github.com/bo
 
 The SoE Intranet Helper is for customizations for the 
 [SoE Intranet site](https://sites.stanford.edu/jse-soe-intranet). Specifically it:
- - assists when the standard Drupal caching may be incomplete.
+ - Assists when the standard Drupal caching may be incomplete. This implements a function to look for a sidebar on a page with a node. If it is not there, flush the cache.
 
 Installation
 ---
@@ -22,6 +22,18 @@ Troubleshooting
 ---
 
 If you are experiencing issues with this module try reverting the feature first. If you are still experiencing issues try posting an issue on the GitHub issues page.
+To verify configuration:
+
+To verify that the `soe_intranet_helper_settings` are set:
+```
+drush vget soe_intranet_helper_settings
+soe_intranet_helper_settings:
+whitelist:
+  :
+  ```
+
+To verify in the logs or (`drush ws --tail`) you see something like:
+```debug soe_intranet_helper_settings First sidebar is missing. Page is: node/xxx```
 
 Contribution / Collaboration
 ---
