@@ -33,7 +33,8 @@ whitelist:
   ```
 
 To verify in the logs or (`drush ws --tail`) you see something like:
-```debug soe_intranet_helper_settings First sidebar is missing. Page is: node/xxx```
+
+```debug soe_intranet_helper First sidebar is missing. Page is: node/xxx```
 
 Contribution / Collaboration
 ---
