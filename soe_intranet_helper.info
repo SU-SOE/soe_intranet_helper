@@ -1,0 +1,11 @@
+name = SoE Intranet Helper
+description = The SoE Intranet Helper assists when the standard Drupal caching may be incomplete.
+core = 7.x
+package = Stanford
+version = 7.x-1.0-dev
+project = soe_intranet_helper
+dependencies[] = block
+; stylesheets[all][] = css/soe_intranet_helper.css
+; scripts[] = js/soe_intranet_helper.js
+project status url = https://github.com/SU-SWS/soe_intranet_helper
+files[] = soe_intranet_helper.install

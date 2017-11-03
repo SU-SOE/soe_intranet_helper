@@ -1,0 +1,76 @@
+<?php
+
+/**
+ * @file
+ * SoE Intranet Helper
+ *
+ * The SoE Intranet Helper assists when the standard Drupal caching may be incomplete.
+ */
+
+/**
+ * Implements hook_block_view_alter().
+ */
+function soe_intranet_helper_block_view_alter(&$data, $block) {
+
+  // If the menu block has no content, it might be due to caching.
+  $delta = 'stanford_jsa_layouts-1';
+  if ($block->delta == $delta) {
+    if (!isset($data['content'])) {
+      watchdog('soe_intranet_helper',
+        'Menu block %menu is missing content. Subject is: %subject',
+        array('%menu' => $delta, '%subject'=>$data['subject']),
+        WATCHDOG_DEBUG);
+      $block = module_invoke('menu_block', 'block_view', $delta);
+    }
+  }
+}
+
+/**
+ * Implements hook_page_alter(&$page).
+ */
+function soe_intranet_helper_page_alter(&$page) {
+
+  // If the page doesn't have a sidebar and it is displaying a node, it might
+  // need the cache cleared.
+  //
+  // This requires refreshing the page twice for the page to render properly.
+  if (!isset($page['sidebar_first'])) {
+    if (isset ($page['content']['system_main']['nodes'])) {
+      $key = (key($page['content']['system_main']['nodes']));
+      $settings = soe_intranet_helper_get_settings();
+
+      if (!in_array($key, $settings['whitelist'])) {
+        watchdog('soe_intranet_helper',
+          'First sidebar is missing. Page is: node/%key',
+          array('%key' => $key),
+          WATCHDOG_DEBUG);
+        drupal_flush_all_caches();
+      }
+    }
+  }
+}
+
+/**
+ * Default settings wrapper for variable_get
+ * @return array
+ *   Persistent settings for this module.
+ *
+ */
+function soe_intranet_helper_get_settings() {
+  $default_settings = array(
+
+    // These are the nodes that don't have first sidebars.
+    // node/628 - Information Technology
+    // node/148 - Home page
+    // node/1225 - Connect-links
+    // node/632 - Job Aids Too
+    // node/80  - page not found
+    // node/164 - Resources Overview
+    // node/90  - Resources
+    // node/78  - Programs
+    'whitelist' => array(628, 148, 1225, 632, 80, 164, 90, 78),
+  );
+  $settings = variable_get('soe_intranet_helper_settings', $default_settings );
+
+  return $settings;
+}

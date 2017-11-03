@@ -1,0 +1,51 @@
+<?php
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_install().
+ */
+function soe_intranet_helper_install() {
+  // Populate the default {node_access} record.
+  /*
+   *db_insert('node_access')
+   *  ->fields(array(
+   *    'nid' => 0,
+   *    'gid' => 0,
+   *    'realm' => 'all',
+   *    'grant_view' => 1,
+   *    'grant_update' => 0,
+   *    'grant_delete' => 0,
+   *  ))
+   *  ->execute();
+   */
+  /* Your code here */
+}
+
+/**
+ * Implements hook_enable().
+ */
+function soe_intranet_helper_enable() {
+
+  // Initialize settings
+  $settings = soe_intranet_helper_get_settings();
+  variable_set('soe_intranet_helper_settings', $settings);
+}
+
+/**
+ * Implements hook_disable().
+ */
+function soe_intranet_helper_disable() {
+  /*
+   *mymodule_cache_rebuild();
+   */
+  /* Your code here */
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function soe_intranet_helper_uninstall() {
+  variable_del('soe_intranet_helper_settings');
+}
