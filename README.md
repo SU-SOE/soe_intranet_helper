@@ -1,10 +1,12 @@
-#[Stanford cache_helper](https://github.com/SU-SWS/soe_intranet_helper)
+#[Stanford Intranet_helper](https://github.com/SU-SWS/soe_intranet_helper)
 ##### Version: 7.x-1.x
 
 Maintainers: [cjwest](https://github.com/cjwest), [boznik](https://github.com/boznik)
 [Changelog.txt](CHANGELOG.txt)
 
-The SoE Intranet Helper assists when the standard Drupal caching may be incomplete.
+The SoE Intranet Helper is for customizations for the 
+[SoE Intranet site](https://sites.stanford.edu/jse-soe-intranet). Specifically it:
+ - assists when the standard Drupal caching may be incomplete.
 
 Installation
 ---
