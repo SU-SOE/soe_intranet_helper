@@ -1,31 +1,6 @@
 <?php
 
 /**
- * @file
- * SoE Intranet Helper
- *
- * The SoE Intranet Helper assists when the standard Drupal caching may be incomplete.
- */
-
-/**
- * Implements hook_block_view_alter().
- */
-function soe_intranet_helper_block_view_alter(&$data, $block) {
-
-  // If the menu block has no content, it might be due to caching.
-  $delta = 'stanford_jsa_layouts-1';
-  if ($block->delta == $delta) {
-    if (!isset($data['content'])) {
-      watchdog('soe_intranet_helper',
-        'Menu block %menu is missing content. Subject is: %subject',
-        array('%menu' => $delta, '%subject'=>$data['subject']),
-        WATCHDOG_DEBUG);
-      $block = module_invoke('menu_block', 'block_view', $delta);
-    }
-  }
-}
-
-/**
  * Implements hook_page_alter(&$page).
  */
 function soe_intranet_helper_page_alter(&$page) {
