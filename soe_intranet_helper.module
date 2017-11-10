@@ -11,10 +11,13 @@ function soe_intranet_helper_page_alter(&$page) {
   // This requires refreshing the page twice for the page to render properly.
   if (!isset($page['sidebar_first'])) {
     if (isset ($page['content']['system_main']['nodes'])) {
-      $key = (key($page['content']['system_main']['nodes']));
+      $key = key($page['content']['system_main']['nodes']);
+      $bundle = $page['content']['system_main']['nodes'][$key]['#bundle'];
       $settings = soe_intranet_helper_get_settings();
 
-      if (!in_array($key, $settings['whitelist'])) {
+      // If it is not a blacklisted node or bundle then flush the cache.
+      if ((!in_array($key, $settings['node_blacklist'])) &&
+        (!in_array($bundle, $settings['bundle_blacklist']))) {
         watchdog('soe_intranet_helper',
           'First sidebar is missing. Page is: node/%key',
           array('%key' => $key),
@@ -43,7 +46,8 @@ function soe_intranet_helper_get_settings() {
     // node/164 - Resources Overview
     // node/90  - Resources
     // node/78  - Programs
-    'whitelist' => array(628, 148, 1225, 632, 80, 164, 90, 78),
+    'node_blacklist' => array(628, 148, 1225, 632, 80, 164, 90, 78),
+    'bundle_blacklist' => array('stanford_person'),
   );
   $settings = variable_get('soe_intranet_helper_settings', $default_settings );
 
